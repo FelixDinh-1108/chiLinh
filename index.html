@@ -69,7 +69,7 @@
         
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 3.5em; /* Chỉnh lại kích thước cho cân đối */
+            font-size: 3.5em;
             margin: 0;
             color: #ffdfa0;
             text-shadow: 0 0 15px #ffdfa0;
@@ -95,7 +95,7 @@
             margin: 0 20px;
             cursor: pointer;
             transition: transform 0.3s, color 0.3s;
-            position: relative; /* Thêm để định vị message-box */
+            position: relative;
         }
 
         .interactive-star:hover {
@@ -115,15 +115,14 @@
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff;
-            font-size: 0.9em; /* <<<< THAY ĐỔI: Chữ đã được làm nhỏ lại */
-            width: 220px;     /* <<<< THAY ĐỔI: Hộp thoại hẹp hơn */
+            font-size: 0.8em; /* <<<< ĐÃ CHỈNH NHỎ LẠI */
+            width: 220px;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s, visibility 0.4s;
             pointer-events: none;
         }
 
-        /* <<<< THAY ĐỔI: Lớp .show để hiển thị hộp thoại bằng JavaScript */
         .message-box.show {
             opacity: 1;
             visibility: visible;
@@ -143,7 +142,7 @@
             to { opacity: 1; }
         }
 
-        /* <<<< THÊM MỚI: CSS cho màn hình điện thoại */
+        /* CSS cho màn hình điện thoại */
         @media (max-width: 600px) {
             h1 {
                 font-size: 2.8em;
@@ -157,7 +156,7 @@
             }
             .message-box {
                 width: 180px;
-                font-size: 0.85em;
+                font-size: 0.75em; /* <<<< ĐÃ CHỈNH NHỎ LẠI CHO ĐIỆN THOẠI */
             }
         }
     </style>
@@ -199,32 +198,27 @@
             nightSky.appendChild(star);
         }
 
-        // --- JavaScript để xử lý CLICK trên điện thoại ---
+        // --- JavaScript để xử lý CLICK ---
         document.addEventListener('DOMContentLoaded', function() {
             const stars = document.querySelectorAll('.interactive-star');
 
             stars.forEach(star => {
                 star.addEventListener('click', function(event) {
-                    // Ngăn sự kiện click lan ra ngoài
                     event.stopPropagation();
                     
-                    // Lấy hộp thoại của ngôi sao được click
                     const currentMessageBox = this.querySelector('.message-box');
                     const isVisible = currentMessageBox.classList.contains('show');
 
-                    // Ẩn tất cả các hộp thoại khác
                     document.querySelectorAll('.message-box').forEach(box => {
                         box.classList.remove('show');
                     });
 
-                    // Nếu hộp thoại hiện tại chưa hiển thị, thì cho nó hiện ra
                     if (!isVisible) {
                         currentMessageBox.classList.add('show');
                     }
                 });
             });
 
-            // Nếu click ra ngoài khoảng không, tất cả hộp thoại sẽ biến mất
             document.addEventListener('click', function() {
                 document.querySelectorAll('.message-box').forEach(box => {
                     box.classList.remove('show');
